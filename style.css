@@ -1,99 +1,128 @@
 /* Reset */
+
+@font-face {
+    font-family: 'JetbrainsMono';
+    src: url('/fonts/JetbrainsMono-Medium.woff') format('woff'),
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JetbrainsMono';
+    src: url('/fonts/JetbrainsMono-MediumItalic.woff') format('woff'),
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'JetbrainsMono';
+    src: url('/fonts/JetbrainsMono-Bold.woff') format('woff'),
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JetbrainsMono';
+    src: url('/fonts/JetbrainsMono-BoldItalic.woff') format('woff'),
+    font-weight: bold;
+    font-style: italic;
+}
+
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  background: #121212;
-  font-family: Jetbrains-Mono-Nerd-Font;
-  color: #eee;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+    background: #121212;
+    font-family: JetbrainsMono;
+    color: #eee;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 .container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 24px;
-  width: 90vw;
-  max-width: 1200px;
-  height: 80vh;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 24px;
+    width: 90vw;
+    max-width: 1200px;
+    height: 80vh;
 }
 
 /* Box shared styles */
 .box {
-  background: #1f1f1f;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-  transition: 
-    transform 0.3s cubic-bezier(0.4,0,0.2,1),
-    box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
+    background: #1f1f1f;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition:
+        transform 0.3s cubic-bezier(0.4,0,0.2,1),
+        box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
 .box:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 18px 3px #9c8efb;
+    transform: scale(1.05);
+    box-shadow: 0 0 18px 3px #9c8efb;
 }
 
 /* Grid positioning */
 .box-render {
-  grid-column: 1 / span 3;
-  grid-row: 1 / span 2;
-  font-size: 2rem;
-  font-weight: 700;
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 2;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .box-about {
-  grid-column: 4 / span 1;
-  grid-row: 1 / span 3;
-  font-size: 1.8rem;
-  font-weight: 700;
+    grid-column: 4 / span 1;
+    grid-row: 1 / span 3;
+    font-size: 1.8rem;
+    font-weight: 700;
 }
 
 .box-pipeline {
-  grid-column: 1 / span 1;
-  grid-row: 3 / span 1;
-  font-size: 1.3rem;
-  font-weight: 600;
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+    font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .box-tooldev {
-  grid-column: 2 / span 2;
-  grid-row: 3 / span 1;
-  font-size: 1.3rem;
-  font-weight: 600;
+    grid-column: 2 / span 2;
+    grid-row: 3 / span 1;
+    font-size: 1.3rem;
+    font-weight: 600;
 }
 
 /* Responsive for smaller screens */
 @media (max-width: 768px) {
-  .container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    height: auto;
-  }
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+    }
   
-  .box-render,
-  .box-about,
-  .box-pipeline,
-  .box-tooldev {
-    grid-column: auto !important;
-    grid-row: auto !important;
-  }
+    .box-render,
+    .box-about,
+    .box-pipeline,
+    .box-tooldev {
+        grid-column: auto !important;
+        grid-row: auto !important;
+    }
   
-  .box {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-  }
+    .box {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
 }
