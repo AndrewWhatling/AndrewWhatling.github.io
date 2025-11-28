@@ -2,28 +2,28 @@
 
 @font-face {
     font-family: 'JetbrainsMono';
-    src: url('/fonts/JetbrainsMono-Medium.woff') format('woff'),
+    src: url('/fonts/JetbrainsMono-Medium.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'JetbrainsMono';
-    src: url('/fonts/JetbrainsMono-MediumItalic.woff') format('woff'),
+    src: url('/fonts/JetbrainsMono-MediumItalic.woff') format('woff');
     font-weight: normal;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'JetbrainsMono';
-    src: url('/fonts/JetbrainsMono-Bold.woff') format('woff'),
+    src: url('/fonts/JetbrainsMono-Bold.woff') format('woff');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'JetbrainsMono';
-    src: url('/fonts/JetbrainsMono-BoldItalic.woff') format('woff'),
+    src: url('/fonts/JetbrainsMono-BoldItalic.woff') format('woff');
     font-weight: bold;
     font-style: italic;
 }
@@ -47,12 +47,13 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 24px;
     width: 95vw;
     max-width: 1600px;
     height: 80vh;
+    margin-top: 50px;
 }
 
 /* Box shared styles */
@@ -78,28 +79,28 @@ body {
 
 /* Grid positioning */
 .box-render {
-    grid-column: 1 / span 3;
+    grid-column: 1 / span 4;
     grid-row: 1 / span 2;
     font-size: 2rem;
     font-weight: 700;
 }
 
 .box-about {
-    grid-column: 4 / span 1;
+    grid-column: 5 / span 2;
     grid-row: 1 / span 3;
     font-size: 1.8rem;
     font-weight: 700;
 }
 
 .box-pipeline {
-    grid-column: 1 / span 1;
+    grid-column: 1 / span 2;
     grid-row: 3 / span 1;
     font-size: 1.3rem;
     font-weight: 600;
 }
 
 .box-tooldev {
-    grid-column: 2 / span 2;
+    grid-column: 3 / span 2;
     grid-row: 3 / span 1;
     font-size: 1.3rem;
     font-weight: 600;
@@ -112,7 +113,7 @@ body {
         grid-template-rows: auto;
         height: auto;
     }
-  
+
     .box-render,
     .box-about,
     .box-pipeline,
@@ -120,7 +121,7 @@ body {
         grid-column: auto !important;
         grid-row: auto !important;
     }
-  
+
     .box {
         font-size: 1.5rem;
         margin-bottom: 20px;
