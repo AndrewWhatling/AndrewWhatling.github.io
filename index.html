@@ -3,62 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My VFX R&D Portfolio</title>
+    <title>Bento VFX Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- NAVBAR -->
-    <nav>
-        <div class="logo">YOUR NAME</div>
-        <div class="links">
-            <a href="#reel">Showreel</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+    <div class="bento-container">
+        <div class="box box-large top-left">
+            <h2>Showreel</h2>
+            <video controls>
+                <source src="your_reel.mp4" type="video/mp4">
+            </video>
         </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <section id="reel" class="hero">
-        <h1>VFX • R&D • Simulation</h1>
-        <p>Showreel 2025</p>
-        <video controls>
-            <source src="your_reel.mp4" type="video/mp4">
-        </video>
-    </section>
-
-    <!-- PROJECTS GRID -->
-    <section id="projects" class="projects">
-        <h2>Selected R&D</h2>
-        <div class="grid">
-
-            <!-- Example project card -->
-            <div class="card">
-                <img src="images/project1.jpg" alt="">
-                <h3>Smoke Solver Experiment</h3>
-                <p>Custom velocity advection test using Pyro.</p>
-            </div>
-
-            <div class="card">
-                <img src="images/project2.jpg" alt="">
-                <h3>Destruction Rig</h3>
-                <p>RBD procedural fracturing pipeline.</p>
-            </div>
-
-            <div class="card">
-                <img src="images/project3.jpg" alt="">
-                <h3>Particle Sand Simulation</h3>
-                <p>Custom grain friction model.</p>
-            </div>
-
+        <div class="box">
+            <h3>Smoke Simulation</h3>
+            <img src="images/project1.jpg" alt="">
         </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer id="contact">
-        <p>© 2025 YOUR NAME — VFX R&D Artist</p>
-        <p>Contact: your.email@example.com</p>
-    </footer>
+        <div class="box">
+            <h3>Destruction R&D</h3>
+            <img src="images/project2.jpg" alt="">
+        </div>
+        <div class="box">
+            <h3>Particles & Sand</h3>
+            <img src="images/project3.jpg" alt="">
+        </div>
+        <div class="box box-medium bottom-right">
+            <h3>Procedural Assets</h3>
+            <img src="images/project4.jpg" alt="">
+        </div>
+    </div>
 
 </body>
 </html>
