@@ -50,8 +50,8 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 24px;
-    width: 90vw;
-    max-width: 1200px;
+    width: 95vw;
+    max-width: 1600px;
     height: 80vh;
 }
 
