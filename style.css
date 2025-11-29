@@ -1,29 +1,29 @@
 /* Reset */
 
 @font-face {
-    font-family: 'JetbrainsMono';
-    src: url('/fonts/JetbrainsMono-Medium.woff') format('woff');
+    font-family: 'JetBrainsMono';
+    src: url('/fonts/JetBrainsMono-Medium.woff2');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'JetbrainsMono';
-    src: url('/fonts/JetbrainsMono-MediumItalic.woff') format('woff');
+    font-family: 'JetBrainsMono';
+    src: url('/fonts/JetBrainsMono-MediumItalic.woff2');
     font-weight: normal;
     font-style: italic;
 }
 
 @font-face {
-    font-family: 'JetbrainsMono';
-    src: url('/fonts/JetbrainsMono-Bold.woff') format('woff');
+    font-family: 'JetBrainsMono';
+    src: url('/fonts/JetBrainsMono-Bold.woff2');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'JetbrainsMono';
-    src: url('/fonts/JetbrainsMono-BoldItalic.woff') format('woff');
+    font-family: 'JetBrainsMono';
+    src: url('/fonts/JetBrainsMono-BoldItalic.woff2');
     font-weight: bold;
     font-style: italic;
 }
@@ -36,7 +36,7 @@
 
 body {
     background: #121212;
-    font-family: JetbrainsMono;
+    font-family: JetBrainsMono, monospace;
     color: #eee;
     height: 100vh;
     display: flex;
@@ -129,7 +129,7 @@ body {
     border: none;
     cursor: default;
     transition: none;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
@@ -181,7 +181,7 @@ body {
     }
 
     .box {
-        font-size: 1.5rem;
+        font-size: 0.8rem;
         margin-bottom: 20px;
     }
 
