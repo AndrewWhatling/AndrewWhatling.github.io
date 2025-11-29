@@ -184,5 +184,8 @@ body {
         font-size: 0.8rem;
         margin-bottom: 20px;
     }
+    .about-text.box {
+    font-size: 0.8rem;
+}
 
 }
