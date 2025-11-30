@@ -38,11 +38,11 @@ body {
     background: #121212;
     font-family: JetBrainsMono, monospace;
     color: #eee;
-    height: 100vh;
+    padding: 20px;
+    /*height: 100vh; */
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
 }
 
 .container {
@@ -153,6 +153,33 @@ body {
 .about-photo img {
     width: 100%;
     max-width: 530px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.portfolio-container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 40px;
+    padding: 40px;
+}
+
+.portfolio-text.box {
+    border: none;
+    cursor: default;
+    transition: none;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.portfolio-text.box:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.portfolio-photo img {
+    width: 100%;
+    max-width: 550px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
