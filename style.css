@@ -177,9 +177,23 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
+.portfolio-text-double.box {
+    border: none;
+    cursor: default;
+    transition: none;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    grid-column: 1 / span 2;
+}
+
+.portfolio-text-double.box:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
 .portfolio-photo img {
     width: 100%;
-    max-width: 550px;
+    max-width: 800px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
