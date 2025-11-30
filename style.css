@@ -125,6 +125,7 @@ body {
     flex: 1;
 }
 
+.portfolio-text.box,
 .about-text.box {
     border: none;
     cursor: default;
@@ -133,6 +134,8 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
+.portfolio-text-double.box:hover,
+.portfolio-text.box:hover,
 .about-text.box:hover {
     transform: none;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
@@ -164,19 +167,6 @@ body {
     padding: 40px;
 }
 
-.portfolio-text.box {
-    border: none;
-    cursor: default;
-    transition: none;
-    font-size: 1.2rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
-}
-
-.portfolio-text.box:hover {
-    transform: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
-}
-
 .portfolio-text-double.box {
     border: none;
     cursor: default;
@@ -184,11 +174,6 @@ body {
     font-size: 1.2rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
     grid-column: 1 / span 2;
-}
-
-.portfolio-text-double.box:hover {
-    transform: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
 .portfolio-photo img {
