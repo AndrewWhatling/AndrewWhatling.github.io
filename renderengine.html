@@ -72,8 +72,90 @@
       <img src="images/renders/sphere_light_2025_oct_27th_16_01.png" alt="Render" />
     </div>
 
-    <div class="portfolio-text box">
+    <div class="portfolio-text-double box">
+      <h2>The Journey</h2>
+    </div>
 
+    <div class="portfolio-text box">
+      <p>
+        I started my render engine off by initially following along a series called "Raytracing in one weekend." 
+        I ran through the initial few chapters of that series. This started with creating very basic images, and 
+        exporting through a format called PPM. After that was adding a basic sphere into the scene, not as geometry,
+        but as the mathematical representation. Once that was working, I added basic anti-aliasing and reading of what
+        would be the normals of the sphere, and that finally lead to the image you see here.
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="images/renders/antialiasing_2025_sept_30th_12_08.png" alt="Sphere with normals " />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        Once that was complete, the next step was to actually get some form of basic shading. I used a very basic
+        shading model to start off with, and the first material type I went with was "Lambertian", a lambert shader, 
+        commonly refered to as "Matte shading". This refers to a perfectly diffuse material.
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="images/renders/lambert_shadows_2025_oct_01st_01_41.png" alt="Lambert material" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        This wasn't without issue however. During this I had a error in my code when it came to the calculation of 
+        how ambient light should interact with the sphere's that I had. This resulted in the spheres coming out as 
+        a flat grey color with no observable depth to them.
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="images/renders/greyball_no_shadows_2025_oct_01st_01_03.png" alt="Greyballs no depth" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        The next material type on the list was metals. The shading model I was using took in 2 parameters for metals. 
+        First was the color of the metal in RGB, and the second was a 0 to 1 range value called "Fuzz", essentially how 
+        blurred the metal's reflection was.
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="images/renders/metal_lambertian_2025_oct_02nd_14_27.png" alt="Metal spheres" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        After that was programming in a transparent material. The type of transparency I am using is a pure Dielectric model.
+        More specifically I am only using Index of Refraction (IOR) to affect the level of transparency that the material has.
+        I decided to add a second sphere within the first glass sphere, so that the material can act as though it has thickness,
+        rather than just being a solid block of glass.
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="images/renders/dialectrics_bubble_2025_oct_05th_22_06.png" alt="Glass bubble sphere" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        Once I had those materials sorted, it was time to make the camera movable. The main challenge with this was that in order 
+        to render objects, you first have to convert the world from world space to camera space (space where the camera is at the 
+        center of the world), and from there you then convert to 2D pixel space, so applying a transformation to the camera meant 
+        adding the world to camera space transformation as well.
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="images/renders/camera_lookat_oct_07th_22_14.png" alt="Camera moved" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+
+      </p>
     </div>
 
     <div class="portfolio-photo">
@@ -81,28 +163,15 @@
     </div>
 
     <div class="portfolio-text box">
+      <p>
 
+      </p>
     </div>
 
     <div class="portfolio-photo">
       <img src="images/test.png" alt="Photo of me" />
     </div>
 
-    <div class="portfolio-text box">
-
-    </div>
-
-    <div class="portfolio-photo">
-      <img src="images/test.png" alt="Photo of me" />
-    </div>
-
-    <div class="portfolio-text box">
-
-    </div>
-
-    <div class="portfolio-photo">
-      <img src="images/test.png" alt="Photo of me" />
-    </div>
 
     <div style="height: 1px;"></div>
   </div>
