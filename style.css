@@ -60,14 +60,14 @@ header {
 .github {
     position: absolute;
     top: 40px;
-    left: 1500px;
+    right: 100px;
     height: 40px;
 }
 
 .linkedin {
     position: absolute;
     top: 40px;
-    left: 1560px;
+    right: 40px;
     height: 40px;
 }
 
