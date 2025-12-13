@@ -229,6 +229,19 @@ footer {
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
+.portfolio-photo-double {
+    grid-column: 1 / span 2;
+    display: grid;
+    justify-content: center;
+}
+
+.portfolio-photo-double img {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
 /* Responsive for smaller screens */
 @media (max-width: 768px) {
     .container {
