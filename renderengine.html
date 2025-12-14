@@ -8,7 +8,9 @@
 </head>
 
 <header>
-    <img src="icons/logo.png" alt="Website Logo" class="logo" onclick="location.href='index.html'">
+  <a href='index.html'>
+    <img src="icons/logo.png" alt="Website Logo" class="logo"">
+  </a>
 
   <a href="https://github.com/AndrewWhatling" target="_blank">
     <img src="icons/github.svg" alt="Github link" class="github">
@@ -17,14 +19,22 @@
   <a href="https://www.linkedin.com/in/andrew-whatling-2704a6259" target="_blank">
     <img src="icons/linkedin.svg" alt="Linkedin link" class="linkedin">
   </a>
+  
 </header>
 
 <body>
-
+  
   <div class="container portfolio-container">
 
     <div class="portfolio-text-double box">
       <h2>Helix - Custom CPU Based Render Engine</h2>
+    </div>
+
+    <div class="portfolio-photo-hero">
+      <img src="images/renders/hero_render.png" alt="Render" />
+    </div>
+
+    <div class="portfolio-text-double box">
       <p>
         <br>
         Helix is a CPU rendering software I started briefly in summer, and since late September 2025, have
@@ -54,14 +64,6 @@
         Below are my latest renders, as well as the journey that got me here.
       </p>
     </div>
-
-    <div class="portfolio-text-double box">
-      <h2>Latest Render</h2>
-    </div>
-
-    <div class="portfolio-photo-double">
-      <img src="images/renders/cornell_box_metal_dragon_glass.png" alt="Render" />
-    </div>
     
     <div class="portfolio-text-double box">
       <h2>Data Passes</h2>
@@ -73,22 +75,27 @@
 
     <div class="portfolio-photo">
       <img src="images/renders/data_pass_cryptomatte.png" alt="Cryptomatte" />
+      <p>Cryptomatte</p>
     </div>
 
     <div class="portfolio-photo">
       <img src="images/renders/data_pass_depth.png" alt="Depth" />
+      <p>Depth</p>
     </div>
 
     <div class="portfolio-photo">
       <img src="images/renders/data_pass_world_space_position.png" alt="World Space Position" />
+      <p>World Space Position</p>
     </div>
 
     <div class="portfolio-photo">
       <img src="images/renders/data_pass_normals.png" alt="Normals" />
+      <p>Normals</p>
     </div>
 
     <div class="portfolio-photo-double">
       <img src="images/renders/data_pass_facing_ratio.png" alt="Camera Facing Ratio" />
+      <p>Camera Facing Ratio</p>
     </div>
 
     <div class="portfolio-text-double box">
@@ -111,18 +118,22 @@
     
     <div class="portfolio-photo">
       <img src="images/renders/purple_dragon.png" alt="Render" />
+      <p>Dielectric (Glass)</p>
     </div>
 
     <div class="portfolio-photo">
       <img src="images/renders/lambert_two_dragons_400_primary_2025_oct_27th_10_37.png" alt="Render" />
+      <p>Lambertian (Matte)</p>
     </div>
 
     <div class="portfolio-photo">
       <img src="images/renders/metallic_two_dragons_400_primary_2025_oct_27th_11_06.png" alt="Render" />
+      <p>Metallic</p>
     </div>
 
     <div class="portfolio-photo">
       <img src="images/renders/sphere_light_2025_oct_27th_16_01.png" alt="Render" />
+      <p>Emissive</p>
     </div>
 
 
@@ -225,7 +236,6 @@
     <div class="portfolio-photo">
       <img src="images/renders/raytracing_in_one_weekend_complete_2025_oct_08th_03_06.png" alt="Finished Raytracing In One Weekend" />
     </div>
-
 
     <div style="height: 1px;"></div>
   </div>

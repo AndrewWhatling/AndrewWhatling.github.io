@@ -63,6 +63,11 @@ footer {
     padding: 20px
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .logo {
     position: absolute;
     top: 20px;
@@ -119,6 +124,27 @@ footer {
     box-shadow: 0 0 18px 3px #9c8efb;
 }
 
+.box-double {
+    grid-column: span 2;
+    background: #1f1f1f;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition:
+        transform 0.3s cubic-bezier(0.4,0,0.2,1),
+        box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.box-double:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px 3px #9c8efb;
+}
+
 /* Grid positioning */
 .box-render {
     grid-column: 1 / span 4;
@@ -134,25 +160,18 @@ footer {
     font-weight: 700;
 }
 
-.box-pipeline {
-    grid-column: 1 / span 2;
-    grid-row: 3 / span 1;
-    font-size: 1.8rem;
-    font-weight: 600;
-}
-
-.box-tooldev {
-    grid-column: 3 / span 2;
-    grid-row: 3 / span 1;
-    font-size: 1.8rem;
-    font-weight: 600;
-}
-
-.box-nextsteps {
+.box-contact {
     grid-column: 5 / span 2;
     grid-row: 1 / span 1;
-    font-size: 1.8rem;
-    font-weight: 600;
+    font-size: 2.8rem;
+    font-weight: 700;
+}
+
+.box-otherprojects {
+    grid-column: 1 / span 4;
+    grid-row: 3 / span 1;
+    font-size: 2.8rem;
+    font-weight: 700;
 }
 
 /* Container for About Me page */
@@ -178,11 +197,18 @@ footer {
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
+.about-text.box {
+    max-width: 65vh;
+    max-height: 75vh;
+    min-width: 20vh;
+}
+
 .portfolio-text-double.box:hover,
 .portfolio-text.box:hover,
 .about-text.box:hover {
     transform: none;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    z-index: 10;
 }
 
 .about-photo {
@@ -198,8 +224,9 @@ footer {
 
 /* Photo styling */
 .about-photo img {
-    width: 100%;
-    max-width: 530px;
+    max-width: 60vh;
+    max-height: 75vh;
+    min-width: 20vh;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
@@ -222,6 +249,13 @@ footer {
     grid-column: 1 / span 2;
 }
 
+.portfolio-photo-double,
+.portfolio-photo {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+}
+
 .portfolio-photo img {
     width: 100%;
     max-width: 800px;
@@ -235,12 +269,38 @@ footer {
     justify-content: center;
 }
 
+.portfolio-photo-hero {
+    grid-column: 1 / span 2;
+    display: grid;
+    justify-content: center;
+}
+
+.portfolio-photo-hero img {
+    width: 100%;
+    max-width: 160vh;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
 .portfolio-photo-double img {
     width: 100%;
     max-width: 800px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
+
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    width: 95vw;
+    max-width: 1600px;
+    height: 80vh;
+    margin-top: 70px;
+}
+
 
 /* Responsive for smaller screens */
 @media (max-width: 768px) {
