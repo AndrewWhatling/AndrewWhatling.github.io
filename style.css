@@ -89,25 +89,28 @@ a {
     height: 5vh;
 }
 
+
+.container,
+.about-container,
+.portfolio-container,
+.projects-container {
+    gap: 1.5vw;
+    padding: 1.5vw;
+    width: 85vw;
+    max-width: 85vw;
+    height: 80vh;
+    margin-top: 4vh;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 1.5vw;
-    padding: 1.5vw;
-    width: 95vw;
-    max-width: 95vw;
-    height: 80vh;
-    margin-top: 4vh;
 }
 
 /* Container for About Me page */
 .about-container {
     display: flex;
-    gap: 1.5vw;
-    padding: 1.5vw;
-    margin-top: 4vh;
-    max-width: 85vw;
 }
 
 /* Box shared styles */
@@ -270,10 +273,6 @@ a {
 .portfolio-container {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(1, 1fr);
-    gap: 1.5vw;
-    padding: 1.5vw;
-    max-width: 95vw;
-    margin-top: 4vh;
 }
 
 .portfolio-text-double.box {
@@ -329,12 +328,6 @@ a {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 1.5vw;
-    padding: 1.5vw;
-    width: 95vw;
-    max-width: 95vw;
-    height: 80vh;
-    margin-top: 4vh;
 }
 
 
