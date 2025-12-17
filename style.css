@@ -100,14 +100,14 @@ p {
 .github {
     position: absolute;
     top: 3%;
-    right: 6%;
+    right: 10vw;
     height: 6%;
 }
 
 .linkedin {
     position: absolute;
     top: 3%;
-    right: 2%;
+    right: 2vw;
     height: 6%;
 }
 
@@ -406,6 +406,39 @@ p {
     .about-text,
     .about-photo {
         grid-column: 1 / -1; /* full width */
+        align-self: center;
+    }
+
+    
+    .linkedin {
+        position: absolute;
+        top: 3%;
+        right: 2%;
+        height: 3%;
+    }
+
+    .github {
+        position: absolute;
+        top: 3%;
+        right: 10%;
+        height: 3%;
+    }
+
+    .logo {
+        position: absolute;
+        top: 3%;
+        left: 1.5%;
+        height: 4%;
+    }
+
+    .box-projects,
+    .box-contact,
+    .box-about,
+    .box-render {
+        grid-column: span 1;
+        grid-row: span 1;
+        font-size: 0.8rem;
+        font-weight: 700;
         align-self: center;
     }
 
