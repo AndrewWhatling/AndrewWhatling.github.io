@@ -75,6 +75,23 @@ a {
     height: 8vh;
 }
 
+.software-logo-container {
+    grid-row: repeat(3, 1fr);
+    gap: 0.5vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    bottom: 1vh;
+
+}
+
+.software-logo {
+    grid-column: span 1;
+    height: 5vh;
+}
+
 .github {
     position: absolute;
     top: 3vh;
@@ -250,6 +267,7 @@ a {
     z-index: 10;
 }
 
+.software-photo,
 .about-photo {
     flex: 1;
     display: flex;
@@ -262,12 +280,17 @@ a {
 }
 
 /* Photo styling */
+.software-photo img,
 .about-photo img {
     max-width: 60vh;
     max-height: 75vh;
     min-width: 20vh;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.software-photo img {
+    box-shadow: none;
 }
 
 .portfolio-container {
