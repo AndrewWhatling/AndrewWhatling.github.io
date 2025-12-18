@@ -219,7 +219,11 @@
 
     <div class="portfolio-text box">
       <p>
-
+        After making the camera movable, the next thing was to get depth of field working, make the scene feel a bit less CG, as much 
+        as you can at this stage anyway. The method used for this was to take the sample position for each pixel, and depending on the 
+        field of view given (setting up a camera lens model for DOF will come later), as well as the distance from the focal plane to 
+        the current ray of light's length before hitting an object, adds an offset in each direction, thus blurring the image to give 
+        depth of field.
       </p>
     </div>
 
@@ -229,7 +233,25 @@
 
     <div class="portfolio-text box">
       <p>
+        And with that, I had finished the "Raytracing in One Weekend" Volume One. I had perfect sphere's rendering in all sorts of 
+        basic materials, but there was something (actually a lot of "somethings") missing from the render engine. I had a quick glance 
+        through the other books of the same series, but ultimately none of them described how to take the next step that I wanted to
+        take, and so it was finally time to drop the guidebook and see what happens. Now the real question, what's the next step?
+      </p>
+    </div>
 
+    <div class="portfolio-photo">
+      <img src="../images/renders/raytracing_in_one_weekend_complete_2025_oct_08th_03_06.png" alt="Raytracing in One Weekend Complete Render" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        GEOMETRY! Specifically I wanted to get .Obj files loaded into my scene, USD and the rest can come later but for now I just 
+        want models in my scene. Now this involved a few different steps before getting it working. Step one, I needed a way to actually 
+        read the Obj files into my render engine. Step two, converting those models into something that my render engine can use. 
+        Finally step three, using those models to create something in my image, and in this case I went back to square one right at the 
+        start of Raytracing in One Weekend, but from the angle of implementing Obj instead of spheres, start in a small capacity and then 
+        scale up to production seemed like the best way to handle this challenge.
       </p>
     </div>
 
@@ -239,7 +261,50 @@
 
     <div class="portfolio-text box">
       <p>
+        For loading the .Obj file, luckily it's essentially just a text file with a specific formatting for vertices, normals, uvs and 
+        faces. Through C++ I open the file line by line, and check if the first string of characters before a whitespace is either "v"
+        (vertex, the position of the point), "vt" (vertex texture, more commonly it's your UV attribute), "vn" (vertex normal) or "f" 
+        (the face the specified vertices make up). As I check through them I store them in a custom class I have setup, which just adds 
+        them to specific lists (in C++ this is adding to a "vector", which is a dynamically sized list in C++, but for all intensive 
+        purposes I'm going to refer to them as lists, as that will be less confusing for anyone familar with 3D who start reading about
+        a vector with over 100 components).<br><br>
 
+        I will get to how the creating faces for the render engine to use works later down the line when I start talking about implementing
+        quads into the render engine, but for now, the idea was to only give my render engine triangles to work with, and then I just took 
+        the first 3 points and made a triangle out of them using the lists I gathered above.
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="../images/engine/load_obj.png" alt="Load Obj Code" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        Now for the last part of this, which is just figuring out if the triangles I have intersect with the ray of light currently being 
+        fired from the camera. At this point I want to quickly cover something, the way light works in a raytracer is a bit strange. Rather 
+        than a light firing rays in all directions, praying that one of those rays hits something, we instead shoot rays from the camera, 
+        and have them bounce around in the scene until either a set number of bounces is reached, or if a light source is hit. There aren't 
+        any light sources aside from just an ambient light in the scene at the moment and so it's just until the bounce limit is reached.<br><br>
+
+        With that out the way, ray intersection of triangles. Luckily for me this has been studied a LOT and so we have a fun little equation 
+        for calculating just this, "Barycentric Coordinates". The idea here is we take the 3 points, and then weight their average influence 
+        on our triangle, all of which adds up to a total of 1. From here we can calculate that any position within the triangle will have a 
+        positive value, and anything outside will have a negative value, and we don't have to worry about any kind of twisting since a triangle 
+        always sits on it's given plane, meaning no matter how much you try, you can't twist it over itself, unlike something like a quad.
+        Finally we then check if the ray position ever passes through a positive coordinate, and if it does, we have a hit.
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="../images/engine/barycentric_coordinates.png" alt="Barycentric Coordinates Code" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        Next up, I wanted to give my mesh some color, same as before I started with normals rather than a more complex material. The reason 
+        for this is so I don't have to worry about calculating how light bounces around my scene and off my geometry, I can just see if it 
+        does hit, and if it does then set it to the value of the normals.
       </p>
     </div>
 
@@ -249,7 +314,9 @@
 
     <div class="portfolio-text box">
       <p>
-
+        Now that I know that's working, I decided it was finally time to start looking at adding an actual material to my mesh. Lucky for 
+        me it turns out there really wasn't much difference at all with the math from one to another, it was just a matter of setting up 
+        my triangle class so that it could be assigned a material.
       </p>
     </div>
 
@@ -259,7 +326,18 @@
 
     <div class="portfolio-text box">
       <p>
+        Next was going through and recreating my scene with multiple objects. More specifically I found having a matte groundplane, along 
+        with a matte, glass and metallic sphere proved to be quite a nice testing ground for my render engine, at least at this scale anyway.<br><br>
 
+        Now sadly while it may sound like this has been smooth sailing so far, it really wasn't. This render is actually a good example of 
+        one of the issues I had, and it steps from the fact that just because my code doesn't error, doesn't mean the math behind it is working
+        as it should be. It may be a bit hard to see, but towards all the poles on the geometry (the part of the faces nearest the points), you 
+        should be able to see a wierd bit of banding happening, where there's this curved shadow. It's easiest to see at the bottom pole of the 
+        center model.<br><br>
+
+        This was caused from something really silly, I wasn't normalising my ray when I fired it from the camera, which I believe meant that 
+        lights shooting from the edge of the scene were bouncing around in too large an increment compared to the center pixels, and so they 
+        caused uneven bounces, ultimately leading to that artifact there.
       </p>
     </div>
 
@@ -269,7 +347,8 @@
 
     <div class="portfolio-text box">
       <p>
-
+        Alright and here's the fixed version, actually if you look between the render here and the one above, you can start playing spot 
+        the difference with how many things were actually being affected because of just how long the length of a light ray was.
       </p>
     </div>
 
@@ -279,7 +358,13 @@
 
     <div class="portfolio-text box">
       <p>
+        Alright I'm going to blaze through this next bit as you've seen it already, this time thought I was aiming to get a larger mesh 
+        working. My scene at this point was maybe 100 triangles if I am being generous. I wanted to render a chinese dragon model that 
+        often gets used for benchmarking and R&D tests, and that full mesh is ~800K polygons, so slightly more that I currently have on 
+        hand, but don't worry, light work my render engine's got this! Annnnnnnnd it wouldn't even render a pixel after 10 minutes, nice.<br><br>
 
+        Alright baby steps, I lowered my expectations for the minute and decided to go with a roughly ~800 poly mesh, much lighter but 
+        even this was a struggle, and so my next steps was optimisation to try and reach my goal of 1 million polygons. 
       </p>
     </div>
 
@@ -289,7 +374,11 @@
 
     <div class="portfolio-text box">
       <p>
-
+        Now my first optimisation technique I used was called multi-threading. Essentially I was only using one core on my laptop at the 
+        time, when it's so much faster to use all of them, in my case I was going from 1 core to 24, so 24 times the number of pixels 
+        rendering at one time. Now this doesn't mean that you get 24x the performance, as nice as that would be, it's roughly 6x faster 
+        but can be up to 10x depending on what I was doing when rendering. Still not nearly enough for that dragon mesh, great that I can 
+        do 24 pixels at once but if I can't even get one to render whats the use putting 24 of them on to not do anything.
       </p>
     </div>
 
@@ -299,17 +388,11 @@
 
     <div class="portfolio-text box">
       <p>
-
-      </p>
-    </div>
-
-    <div class="portfolio-photo">
-      <img src="../images/renders/multi_objects_dragon_2025_oct_13th_11_39.png" alt="Dragon and Sphere" />
-    </div>
-
-    <div class="portfolio-text box">
-      <p>
-
+        As for multi-threading specifically. I'm setting up a threadpool (a class that automatically manages all the threads on my laptop)
+        and from there I have different functions that I call at different times in the rendering process. What that means is that when a 
+        job starts, my threadpool gets all the workers, and then one by one will asign them a task from that job, and will remove them from 
+        the current available pool. Then when a worker finishes their task, they will feed back the result, then clean up any residual data,
+        before finally being added back to the active pool and the cycle starts all over again until the job is complete.
       </p>
     </div>
 
