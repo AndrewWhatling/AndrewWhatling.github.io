@@ -145,7 +145,7 @@
       <p>
         I started my render engine off by initially following along a series called "Raytracing in one weekend." 
         I ran through the initial few chapters of that series. This started with creating very basic images, and 
-        exporting through a format called PPM. After that was adding a basic sphere into the scene, not as geometry,
+        exporting through a format called .PPM. After that was adding a basic sphere into the scene, not as geometry,
         but as the mathematical representation. Once that was working, I added basic anti-aliasing and reading of what
         would be the normals of the sphere, and that finally lead to the image you see here.
       </p>
@@ -196,12 +196,28 @@
         After that was programming in a transparent material. The type of transparency I am using is a pure Dielectric model.
         More specifically I am only using Index of Refraction (IOR) to affect the level of transparency that the material has.
         I decided to add a second sphere within the first glass sphere, so that the material can act as though it has thickness,
-        rather than just being a solid block of glass.
+        rather than just being a solid block of glass.        
       </p>
     </div>
 
     <div class="portfolio-photo">
       <img src="../images/renders/dialectrics_bubble_2025_oct_05th_22_06.png" alt="Glass bubble sphere" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        During this stage I also decided to write a system to convert my image from linear colorspace to sRGB, the images just 
+        looked really off without having that implemented. Turns out for linear to sRGB it's a single mathematical formula. If 
+        you're interested it's here.<br><br>
+        
+        linear component refers to red green or blue, depending on which is give, and this just checks if that component is less than 
+        or equal to 0.0031308, and if it is, then multiply by 12.92, otherwise you take the component, apply an exponent of 1 divide 2.4,
+        multiply that by 1.055, and then subtract 0.055 from that result. 
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="../images/engine/linear_to_srgb.png" alt="Linear to sRGB code" />
     </div>
 
     <div class="portfolio-text box">
@@ -413,7 +429,49 @@
 
     <div class="portfolio-text box">
       <p>
+        The idea behind a BVH is to take a given mesh, create a bounding box from it, and then recursively divide that bounding box until you get 
+        a much more reasonable number of boxes to loop through when a ray is fired. Lets say we have 1 million polygons, since that's what I'm aiming 
+        for here. Every time a ray is fired from the camera, the render engine has to go through every one of those million polygons, and check if it 
+        intersected with that polygon. Then lets say we have 20 samples per pixel, meaning it has to do that 20 times! 20 million processes for a 
+        single pixel. A 1920x1080 image is roughly 2 million pixels, so 2 million times 20 million and this is getting into beyond silly teritory.
 
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="../images/engine/bvh_code.png" alt="Dragon High Shaded" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        Instead, with a BVH, we check the bounding box, if it misses, continue, thats already 1 process instead of 1 million, if it hits however,
+        we then split the bounding box in half, and check each half, and we repeat this until we get to a recursion depth limit, I set this limit 
+        because otherwise my BVH would try to create bounding boxes until it gets down to a single polygon, at which point its another several million 
+        calculations to make the BVH in the first place. Once it reaches that recursion limit, it then loops through all the polygons in that bounding 
+        region, and then continues the calculations. Essentially you'd be looking at maybe 50-100 checks a sample, which is a much nicer number to put 
+        it blunt.<br><br>
+
+        The image to the right here is a Visualisation of BVH construction in Houdini, to the left, is the bounding boxes at roughly depth 10. On the 
+        right, you have all the depths up till the same depth overlayed on top of one another, you can see as the depth increases, any bounding boxes 
+        that don't have any primitives get removed.
+      </p>
+    </div>
+
+    <div class="portfolio-photo">
+      <img src="../images/engine/bvh_vis.png" alt="Bounding Volume Hierarchy Visualisation" />
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        With that out the way, it was now time for the big test, could it handle the full resolution dragon. Turns out, yes, yes it could. It took me 
+        a little while to realise about the depth recursion limit that I spoke about earlier, so at first it didn't want to play ball, but once I added 
+        that, it was happy to start rendering. <br><br>
+
+        There was one other little issue though that cropped up, NaNs! Not the kind that make amazing roast dinners sadly, the kind that break your renders.
+        NaNs stands for "not a number" and this issue caused my .PPM file format to break. PPM basically just lists numbers between 0 and 255 representing 
+        red, green and blue respectively, the issue that happens with NaNs in this case, instead of 0 to 255, a NaN value defaults to the lowest 32 bit 
+        integer number, -2,147,483,648 to be specific, and that in turn makes any pixels after the NaN in my image break and just don't show up. The fix was 
+        just adding a failsafe where if the length of the ray vector was too short or not a finite number then set the vector to point directly from the normal.
       </p>
     </div>
 
@@ -423,7 +481,8 @@
 
     <div class="portfolio-text box">
       <p>
-
+        After that I started having a play trying to get renders working, I now had 2 dragons, so we have easily hit the 1 million mark, and I was very happy 
+        at this point. My first test was running with just lambert shaders. The other thing that I did at this point was finally implementing quads.
       </p>
     </div>
 
@@ -433,7 +492,23 @@
 
     <div class="portfolio-text box">
       <p>
+        Quads give me a lot more options for what I can add to my render engine, and I no longer need to triangulate all the meshes coming into the render 
+        engine. Now the easiest way I thought of to deal with rendering quads, is rather than triangulating outside of the render engine, why not do that 
+        internally during the file reading stage. The idea behind this, I applied procedurally rather than hard coding, which was just looping through each 
+        face, and taking point 0, the number of the current loop, and then the number of the current loop + 1. So for example, you would have points 0, 1 
+        and 2 making a triangle, and 0, 2 and 3 making another. This also means if I was to load in ngons, it would accept them, but if you had very unstable 
+        geometry then there would definitely be artifacting, a future problem but its not a high priority at this moment in time. 
+      </p>
+    </div>
 
+    <div class="portfolio-photo">
+      <img src="../images/engine/quads_implemented.png" alt="Quads Code" />
+    </div>
+
+
+    <div class="portfolio-text box">
+      <p>
+        After that I tried rendering the dragon pair with field of view. I chucked on 2 metallic shaders with fuzz enabled and this was the result.
       </p>
     </div>
 
@@ -443,7 +518,12 @@
 
     <div class="portfolio-text box">
       <p>
+        Next up, I implemented an emissive texture. The reason for this was actually to use it as a light source, in the long run I plan on playing 
+        around with different ideas for lights, but this works at the moment. The main thing that will affect this is implementing more advanced 
+        shaders, in particular when I add physically based materials, but that will only be happening after upgrading to a path tracer.<br><br>
 
+        I decided to reuse the mathematical spheres for this light actually, was nice to finally have another use case for them now that I was 
+        reading in geometry.
       </p>
     </div>
 
@@ -453,7 +533,8 @@
 
     <div class="portfolio-text box">
       <p>
-
+        After that, I wanted to see how the light would interact with a metallic shader, and so I chucked on some chrome and set it to render.
+        Here's the result of that experiment.
       </p>
     </div>
 
@@ -463,7 +544,9 @@
 
     <div class="portfolio-text box">
       <p>
-
+        Next, I wanted to use a cornell box, I felt that using something like this makes it a lot easier to compare to other engines and such. 
+        This is also a very common model used for benchmarking, along side the dragon I was already using, and so I fired off my first render 
+        of it here.
       </p>
     </div>
 
@@ -473,7 +556,8 @@
 
     <div class="portfolio-text box">
       <p>
-
+        I then had a fun idea, how about adding an absorption property to the glass. What this means is if the absorption of the glass is set 
+        to 0, 1, 0, it will completly absorb the green channel of R,G,B, and then bounces back purple. That's exactly what you see here.
       </p>
     </div>
 
@@ -483,7 +567,12 @@
 
     <div class="portfolio-text box">
       <p>
+        After all of this, now I finally decided that my render engine was at the stage where I would should implement .exr files. And so also 
+        came my first use of an external library, the library responsible for exr files. Up until this point, everything I had in my code was 
+        written from the ground up, be it the definition of a vec3 (a vector with 3 axis) all the way to my materials and rendering.<br><br>
 
+        The advantage of this now is I was able to add data passes, this one here is a depth. When a ray collides with a mesh it stores the 
+        length of that ray, this has a few advantages when it comes to a bit of optimisation, but in this case is acts as my depth pass value.
       </p>
     </div>
 
@@ -493,7 +582,8 @@
 
     <div class="portfolio-text box">
       <p>
-
+        Next up was normals, which luckily are stored in .obj files, but if they aren't stored, then I calculate the face normal and use that 
+        which is slightly less accurate if they haven't been stored, but it works for now.
       </p>
     </div>
 
@@ -503,7 +593,7 @@
 
     <div class="portfolio-text box">
       <p>
-
+        Next is world space position, which again is just sampled from the ray when it hits the mesh.
       </p>
     </div>
 
@@ -513,7 +603,12 @@
 
     <div class="portfolio-text box">
       <p>
-
+        Now for one of my favourite data passes: Camera facing ratio. The way this works is by calculating the direction of the normal, which in 
+        turn is the direction the face is well, facing. Then we use a dot product to calculate if the ray and the normal are facing towards each 
+        other, and based on that we set the value for the facing ratio, a dot product of -1 means the ray and normals directly face each other, 
+        and I set a value of 1 in the red channel. If the dot product gives 0, I return 0.5 in the red channel, and anything further than that 
+        is on the other side of the mesh and so you can't see it. The reason I return 0.5 instead of 0, is because 0 is the blank space where no 
+        geometry is.
       </p>
     </div>
 
@@ -523,7 +618,8 @@
 
     <div class="portfolio-text box">
       <p>
-
+        Finally we got onto cryptomatte. The issue with this is that it requires very specific metadata. So not only do I now have IDs for my 
+        materials and meshes in my scene that then gets set to the cryptoid, but we also need encryption among other things.  
       </p>
     </div>
 
@@ -531,7 +627,43 @@
       <img src="../images/renders/data_pass_cryptomatte.png" alt="Data Pass Cryptomatte" />
     </div>
 
+    <div class="portfolio-text box">
+      <p>
+        Now for the encryption. Luckily I can use Nuke to read the metadata from exr files rendered out of Houdini with cryptomatte enabled.
+        What this lead me to was that the encryption method used was something called murmur_hash3, and luckily enough again, wikipedia 
+        happened to have a C based language implementation of this encryption. Then I just needed to setup writing it out alongside the rest 
+        of my data passes, which in turn did make me have to overhaul my entire way I was writing out exr files, but in the end it worked and 
+        now I had working cryptomattes.
+      </p>
+    </div>
 
+    <div class="portfolio-photo">
+      <img src="../images/engine/murmur_hash3.png" alt="MurMur Hash3 Code" />
+    </div>
+
+
+    <div class="portfolio-text-double box">
+      <p>
+        And with that, you've reached where I am currently at with my render engine.<br><br>
+        
+        Thank you for reading and if you have any suggestions for improvements, or any questions about my work, please reach out to be via 
+        the email below!<br><br>
+
+        Now if you're interested, the next plans for this project are roughly as follows:<br><br>
+
+        Work out how to do scene serialisation: I am creating nodes in Houdini that will write out to a .json file that my renderer will read in 
+        and convert into a scene. In this way I can do lookdev inside of Houdini, and there's potential here to explore GLSL realtime shaders.<br><br>
+
+        After that is converting my raytracer to a path-tracer, and then I will start working on physically based materials.<br><br>
+        
+        From there I want to try playing around with some more abstract things, there's a lot of optimisations and small quality of life features that
+         I will implement in between this when I don't quite have time for the larger elements, but a big one I've been picturing was trying to implement 
+         spectral rendering, using wavelengths rather than RGB values so that I can get iridescent textures among other things.<br><br>
+        
+        There's also a world where I span this off in the direction of interstellar, probably as a side module or a seperate project in hindsight, but 
+        creating a render engine that can bend light around a black hole does sound very fun.
+      </p>
+    </div>
 
     <div style="height: 1px;"></div>
   </div>
