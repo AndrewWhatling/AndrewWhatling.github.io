@@ -24,32 +24,91 @@
 
 </body>
 
-<div class="container portfolio-container">
+  <div class="container portfolio-container">
 
-  <div class="portfolio-text-double box">
-    <h2>Point Deform Procedural - Rendertime Deformation</h2>
-  </div>
+    <div class="portfolio-text-double box">
+      <h2>Point Deform Procedural - Rendertime Deformation</h2>
+    </div>
 
-  <div class="portfolio-photo-hero">
-    <img src="../images/curvature/curvature_hero.png" alt="Render" />
-  </div>
+    <div class="portfolio-photo-hero">
+     <img src="../images/curvature/curvature_hero.png" alt="Render" />
+    </div>
 
-  <div class="portfolio-text-double box">
-    <p>
-      <br>
-      This point deform procedural was inspired by a blog post by Marcel Ruegenberg and was designed for my 
-      final year university film. In his post "Hacking Houdini Solaris Procedurals" he goes into explaining 
-      what procedurals are, and the theory behind how they are made.<br><br>
+    <div class="portfolio-text-double box">
+      <p>
+       <br>
+        This point deform procedural was inspired by a blog post by Marcel Ruegenberg and was designed for my 
+        final year university film. In his post "Hacking Houdini Solaris Procedurals" he goes into explaining 
+        what procedurals are, and the theory behind how they are made.<br><br>
 
-      Houdini procedurals are compiled scene graphs that can be ran at render time to manipulate, create or 
-      destroy geometry during the render itself. The advantage of something like this, and the main purpose 
-      of this procedural in particular, is saving disk space. The standard pipeline for point deformed animation
-      is to take the mesh and deform it by curves, and save each frame of that out to disk, the issue with that 
-      is that for every frame of animation, you are saving out the full geometry again and again. As an example,
-      if you are working with a forest, you could be looking at hundreds of gigabytes per frame. The point deform
-      procedural is a wrapper for the sop level point deform node, taking a static meshs, static curves and
-      animated curves, and deforming the mesh by the curves at render time, and eliminates the need to save
-      any deformed geometry to disk.<br><br>
+        Houdini procedurals are compiled scene graphs that can be ran at render time to manipulate, create or 
+        destroy geometry during the render itself. The advantage of something like this, and the main purpose 
+        of this procedural in particular, is saving disk space. The standard pipeline for point deformed animation
+        is to take the mesh and deform it by curves, and save each frame of that out to disk, the issue with that 
+        is that for every frame of animation, you are saving out the full geometry again and again. As an example,
+        if you are working with a forest, you could be looking at hundreds of gigabytes per frame. The point deform
+        procedural is a wrapper for the sop level point deform node, taking a static meshs, static curves and
+        animated curves, and deforming the mesh by the curves at render time, and eliminates the need to save
+        any deformed geometry to disk.<br><br>
 
-    </p>
-  </div>
+      </p>
+    </div>
+
+    <div class="portfolio-text box">
+     <p>
+       The first step in creating the point deform procedural was to setup the node graph that I will then be converting
+       into the procedural. The first thought that I had was to just use the point deform node itself, which I think might 
+       work as of the current version of houdini, however as you can see here I ended up not using that.<br><br>
+
+       Instead what I decided was to strip down the point deform node into only the elements that I needed from it to 
+       capture and deform the geometry. The reason for this is because I found that using relative and channel references 
+       inside of a procedural doesn't work. This is (I believe) because at render time, nodes don't actually exist. So 
+       when you are referencing nodes from within that compiled graph, Husk doesn't know where to grab the value from and 
+       ends up not working.
+
+     </p>
+    </div>
+
+    <div class="portfolio-photo">
+     <img src="../images/pointdeformprocedural/nodegraph.png" alt="Point deform node graph" />
+    </div>
+
+    <div class="portfolio-text box">
+     <p>
+       The next thing is to take that node graph from before and convert it into geometry using the attribute from parameters 
+       node. This node, when set to "points from subnetwork" acts very similarly to how apex rigging seems to work inside of 
+       Houdini, converting the node graph into geometry, where each point is representative of a node, and holds all the data 
+       about that node, parameters and their equivalent values and such.<br><br>
+
+       We do this so that you can save out the compiled graph to disk as a .bgeo.sc. This then gets ran through python inside 
+       of solaris, which in turn sets up the procedural to run this compiled node graph during the rendering process. This works 
+       because unlike having a nodes themselves, which don't exist at render time, you're just running through a list of dictionaries 
+       essentially, and using that to modify the current geometry. You can actually do the same thing with using the invoke graph 
+       SOP inside of Houdini to run a .bgeo.sc file on the input geometry and the output will be the result will be the same as if 
+       you had just ran the compiled node graph as nodes directly after the input geometry node.
+
+     </p>
+    </div>
+
+    <div class="portfolio-photo">
+     <img src="../images/pointdeformprocedural/compiledgraph.png" alt="Compiled node graph geometry" />
+    </div>
+
+    <div class="portfolio-text box">
+     <p>
+       As for the node inside of solaris. I have promoted radius, min and max point count, as well as and option for the piece 
+       attribute. I'm also giving the option to select which geometry to perform the operation on, both for the incoming geometry 
+       to deform, as well as the rest and guide curves to deform the geometry with.
+
+     </p>
+    </div>
+
+    <div class="portfolio-photo">
+     <img src="../images/pointdeformprocedural/parminterface.png" alt="Point deform procedural parameters" />
+    </div>
+  
+  <div style="height: 1px;"></div>
+</div>
+
+</body>
+</html>
