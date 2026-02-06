@@ -319,7 +319,8 @@ p {
     text-align: center;
 }
 
-.portfolio-photo img {
+.portfolio-photo img,
+.portfolio-photo video {
     width: 100%;
     max-width: 800px;
     border-radius: 10px;
@@ -338,7 +339,8 @@ p {
     justify-content: center;
 }
 
-.portfolio-photo-hero img {
+.portfolio-photo-hero img,
+.portfolio-photo-hero video {
     width: 100%;
     max-width: 160vh;
     border-radius: 10px;
