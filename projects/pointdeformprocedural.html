@@ -106,7 +106,61 @@
     <div class="portfolio-photo">
      <img src="../images/pointdeformprocedural/parminterface.png" alt="Point deform procedural parameters" />
     </div>
+
+    <div class="portfolio-text box">
+      <p>
+        As for the actual code behind creating the procedural. The first thing I'm doing is grabbing the parameters on the point 
+        deform HDA for the incoming geometry, and curves to use, and I expand their paths so I can grab those primitives inside of 
+        usd. I then check if my incoming geometry is a valid primitive, and if so, I get it's primvar api and create a list of parms.
+        This list is the list of parameters on my point deform node to loop through, and turn into arguments that the compiled node 
+        graph can use at render time.<br><br>
+        
+        I also generate a dictionary called args. These args are the dictionary that gets read by the invokegraph.py script that SideFx 
+        has, and includes all the information that gets sent to the compiled node graph at render time. Finally I loop through all the 
+        input parameters I listed before, and create usd relationships on those parameters, before appending them to the inputs list of 
+        the args dictionary. 
+      </p>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/pointdeformprocedural/inputs.png" alt="Initialise inputs code" />
+     </div>
+
+     <div class="portfolio-text box">
+      <p>
+        Once I have the inputs initialised, I setup parameter overrides through the pxr.Usd python api. I loop through the parms in the 
+        list I made before, and if the parm exists, then I get the value of the parm, as well as it's name, and I check the type of value 
+        that is being returned from it. Based on that return type, I create a new primvar and set it's value to the value specified on the
+        parm before adding it to the overrides nested dictionary inside the args dictionary.<br><br>
+
+        If the parm however is a parmTuple, I loop through and calculate both the number of components that the parameter has, as well as 
+        the type of value those components are. Based on these 2 conditions, I create primvars and set their respective values to the same 
+        as the type and sizes specified before, and again I add these to the overrides dictionary.
+
+      </p>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/pointdeformprocedural/overrides.png" alt="Override parameters code" />
+     </div>
   
+     <div class="portfolio-text box">
+      <p>
+        After finally runnning that through SideFx's invokegraph.py script, you can then plug in a preview procedurals node and you'd see 
+        that the point deformation would be working.<br><br>
+
+        Here is a very unimpressive example of that in action, where I've taken a line and swept a quad along said line, as well as taking 
+        a static line as it's rest pose, and then I animated that line with some basic noise to get the animated pose to deform to. I imported 
+        all 3 of these into solaris, ran them through the point deform procedural, and the result looks exactly as we had hoped, with the 
+        tube being deformed by the animated curve based on the static curve's rest pose.
+
+      </p>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/pointdeformprocedural/tubedeform.png" alt="Tube deform example" />
+     </div>
+
   <div style="height: 1px;"></div>
 </div>
 
