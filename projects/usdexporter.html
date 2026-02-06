@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Point Deform Procedural</title>
+<link rel="stylesheet" href="../style.css" />
+</head>
+
+<header>
+  <a href='../index.html'>
+    <img src="../icons/logo.png" alt="Website Logo" class="logo">
+  </a>
+
+  <a href="https://github.com/AndrewWhatling" target="_blank">
+    <img src="../icons/github.svg" alt="Github link" class="github">
+  </a>
+
+  <a href="https://www.linkedin.com/in/andrew-whatling-2704a6259" target="_blank">
+    <img src="../icons/linkedin.svg" alt="Linkedin link" class="linkedin">
+  </a>
+</header>
+
+
+</body>
+
+  <div class="container portfolio-container">
+
+    <div class="portfolio-text-double box">
+      <h2>Point Deform Procedural - Rendertime Deformation</h2>
+    </div>
+
+    <div class="portfolio-photo-hero">
+  <video src="../videos/av1mp4/pointdeformprocedural_grass.mp4" autoplay muted loop playsinline></video>
+</div>
+
+    <div class="portfolio-text-double box">
+      <p>
+       <br>
+        This point deform procedural was inspired by a blog post by Marcel Ruegenberg and was designed for my 
+        final year university film. In his post "Hacking Houdini Solaris Procedurals" he goes into explaining 
+        what procedurals are, and the theory behind how they are made.<br><br>
+
+        Houdini procedurals are compiled scene graphs that can be ran at render time to manipulate, create or 
+        destroy geometry during the render itself. The advantage of something like this, and the main purpose 
+        of this procedural in particular, is saving disk space. The standard pipeline for point deformed animation
+        is to take the mesh and deform it by curves, and save each frame of that out to disk, the issue with that 
+        is that for every frame of animation, you are saving out the full geometry again and again. As an example,
+        if you are working with a forest, you could be looking at hundreds of gigabytes per frame. The point deform
+        procedural is a wrapper for the sop level point deform node, taking a static meshs, static curves and
+        animated curves, and deforming the mesh by the curves at render time, and eliminates the need to save
+        any deformed geometry to disk.<br><br>
+
+      </p>
+    </div>
+
+    <div class="portfolio-text box">
+     <p>
+       The first step in creating the point deform procedural was to setup the node graph that I will then be converting
+       into the procedural. The first thought that I had was to just use the point deform node itself, which I think might 
+       work as of the current version of houdini, however as you can see here I ended up not using that.<br><br>
+
+       Instead what I decided was to strip down the point deform node into only the elements that I needed from it to 
+       capture and deform the geometry. The reason for this is because I found that using relative and channel references 
+       inside of a procedural doesn't work. This is (I believe) because at render time, nodes don't actually exist. So 
+       when you are referencing nodes from within that compiled graph, Husk doesn't know where to grab the value from and 
+       ends up not working.
+
+     </p>
+    </div>
+
+    <div class="portfolio-photo">
+     <img src="../images/pointdeformprocedural/nodegraph.png" alt="Point deform node graph" />
+    </div>
+
+    <div style="height: 1px;"></div>
+
+</body>
+</html>
