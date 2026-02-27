@@ -183,7 +183,17 @@
 
      <div class="portfolio-text box">
       <p>
-        Text.<br><br>
+        Next is my geometry validator. I loop through each prim in the current stage and check if it's a geometry subset, a 
+        material, or has the name "mtl", and if it does, I add it to the group that I am removing later. The reason I add the 
+        clause for "mtl" as the prim name, is because I know this tool is going to be used in Maya, and for all intensive purpose,
+        I don't think geometry will be coming out of other software aside from Maya for my film, and so I am targetting any of the 
+        standard surfaces that maya may try to drag along on initial export and removing them here.<br><br>
+        
+        Once that's done I run my material transfer script to take any materials currently applied on the old prim and convert that 
+        to a primvar which is going to be transfered later. I then remove kinds, api Schemas, any material bindings and any material 
+        relationships.<br><br>
+
+        
      </div>
  
      <div class="portfolio-photo">
