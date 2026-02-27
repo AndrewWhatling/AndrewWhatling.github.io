@@ -117,13 +117,87 @@
 
     <div class="portfolio-text box">
      <p>
-       Now for the xforms.<br><br>
+       Now for the xforms. I start by getting the xformable of the source prim, and then loop through all of the 
+       xforms on that xformable. If the xformable exists on the destination prims xform then I skip over creating it,
+       otherwise I make a new xform with the type, precision and name of the source xform. Once that is done I get the 
+       attribute for both and run it through my handle attribute transfer function.<br><br>
      </p>
     </div>
 
     <div class="portfolio-photo">
      <img src="../images/usdexporter/transfer_xforms_code.png" alt="Transfer xform code." />
     </div>
+
+    <div class="portfolio-text-double box">
+      <p>
+        Just to quickly go over some other functions I have, but are small enough that I don't feel it'd be worth dedicating 
+        a section to them individually. I have a wrapper function for flattening stage and returning the new opened layer. I 
+        also have a function that just loops through at gets all the primitives directly under "/" in the given usd stage. 
+        Alongside these, I have functions for removing meshes and materials, these functions are useful for when I'm exporting 
+        out of Maya, so for example with the materials function I want to get rid of any initial shading group data from my 
+        prims, as well as any assigned textures from the mesh during the initial export. As for removing meshes, this is for 
+        when I am exporting cameras, I bring the fbx camera from syntheyes into Maya, and then run it through that to get rid 
+        of anything like the camera plane grid that can come from a syntheyes export.<br><br>
+      </p>
+    </div>
+
+    <div class="portfolio-text box">
+      <p>
+        One other function that I do think deserved talking about was how I am transfering materials from Maya to Houdini. 
+        The pipeline we use is to create and assign shaders inside of Houdini as a separate Usd layer. The generalist on 
+        my team however finds it easier to assign materials inside of Maya, and we found that the implementation of materialx 
+        in Maya seemed to have some issues in the version we are using, so exporting materials directly was a no go.<br><br>
+
+        The solution? A method of taking the assigned material and tagging it as a custom primvar. I do this through the 
+        UsdShade material binding api, and get the material bound on per prim. If there is a binding, I get the name, grab
+        the primvar api of that prim, create a new "mat" primvar, and set it to be the value of the bound material's name.
+        This runs through an auto material assigner HDA I made which read's the mat primvar and creates materials for each 
+        of it's unique values.<br><br> 
+      </p>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/usdexporter/material_tagging_code.png" alt="Material tagging code." />
+     </div>
+
+     <div class="portfolio-text box">
+      <p>
+        The next thing I worked on is what I, for all intensive purposes, refer to as my usd validators. These are the 
+        scripts I run over the input stage to clear out additional information that I don't want, need, or is just redundant.<br><br>
+        
+        Here is the animation validator function. I take the input stage, as well as getting the start time code of the stage,
+        and I loop through each prim in the stage. If the prim name is "mtl" or the prim is a geometry subset, i add them to a 
+        list which I am removing later. I don't remove them instantly because of an error that started coming up with trying to 
+        access a prim that no longer exists, I'm sure there's a better way of doing it performance wise, but it is beyond negligable 
+        for our use case. I then remove any kind or apischemas metadata, as well as clearing any material bindings.<br><br>
+
+        Once that is done, I check if the prim is a mesh, and if it is I get the authored attributes on the mesh, and if the 
+        value is in the static or animated lists that I created, I clear and set them accordingly. The reason for this is to 
+        remove any time dependencies or subframes that I don't need, lightening my Usd files. Finally after all of that is done,
+        I remove the paths that I grabbed in a list previously.<br><br>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/usdexporter/validate_anim_code.png" alt="Animation validation code." />
+     </div>
+
+     <div class="portfolio-text box">
+      <p>
+        Text.<br><br>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/usdexporter/validate_geo_code.png" alt="Geo validation code." />
+     </div>
+
+     <div class="portfolio-text box">
+      <p>
+        Text.<br><br>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/usdexporter/validate_cam_code.png" alt="Camera validation code." />
+     </div>
 
 
     <div style="height: 1px;"></div>
