@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Point Deform Procedural</title>
+<title>Usd Exporter</title>
 <link rel="stylesheet" href="../style.css" />
 </head>
 
@@ -30,7 +30,7 @@
     </div>
 
     <div class="portfolio-photo-hero">
-  <video src="../videos/av1mp4/pointdeformprocedural_grass.mp4" autoplay muted loop playsinline></video>
+  <video src="../videos/h264mp4/BushtailBandit_sh0080_v008.mp4" autoplay muted loop playsinline></video>
 </div>
 
     <div class="portfolio-text-double box">
@@ -183,7 +183,25 @@
 
      <div class="portfolio-text box">
       <p>
-        Text.<br><br>
+        Next is my geometry validator. I loop through each prim in the current stage and check if it's a geometry subset, a 
+        material, or has the name "mtl", and if it does, I add it to the group that I am removing later. The reason I add the 
+        clause for "mtl" as the prim name, is because I know this tool is going to be used in Maya, and for all intensive purpose,
+        I don't think geometry will be coming out of other software aside from Maya for my film, and so I am targetting any of the 
+        standard surfaces that maya may try to drag along on initial export and removing them here.<br><br>
+        
+        Once that's done I run my material transfer script to take any materials currently applied on the old prim and convert that 
+        to a primvar which is going to be transfered later. I then remove kinds, api Schemas, any material bindings and any material 
+        relationships.<br><br>
+
+        After that, I loop through all the authored attributes on the primitive, and match them to the attributes that I am wanting to 
+        keep on the prim. If the name of the attribute matches one of the values in the list then I remove time dependencies from the 
+        attribute and set it to the value on the first frame. Otherwise I remove the attribute. The one caveat to this is with the mat 
+        primvar I created earlier. If that has the value of "initialShadingGroup" then I clear it, otherwise I keep it as it is.<br><br>
+        
+        Finally I go through and clear the pivots on the prim, I set some generic defaults like subdivision schema and then I loop through 
+        and remove the list of prims that I marked for removal earlier. Once this is all done I return the editted stage.<br><br>
+
+        
      </div>
  
      <div class="portfolio-photo">
@@ -192,11 +210,55 @@
 
      <div class="portfolio-text box">
       <p>
-        Text.<br><br>
+        Finally I have my camera validator. This loops through the prims in the given stage, first clearing kind metadata, before then 
+        getting the start time code. It then checks if the prim is a camera prim, and if so, loops through the authored attributes on 
+        that camera, looping for static attributes like focal length, and removes any potential time dependencies on them. If the attribute 
+        is not in that list, it checks if the attribute is an xformop, and if so, converts it to only save integer frame number values.
+        Finally it returns the editted stage.<br><br>
      </div>
  
      <div class="portfolio-photo">
       <img src="../images/usdexporter/validate_cam_code.png" alt="Camera validation code." />
+     </div>
+
+     <div class="portfolio-text box">
+      <p>
+        I then wrapped this in a shelf tool for Maya. The logic component behind it takes an asset type, asset name, export type and 
+        shot number. When called it then checks if a mesh is selected. If one is, it loads Maya's usd plugin if it hasn't already been 
+        loaded. It then runs an initial export using Maya's default usd exporter to a temp file, with the path being returned as a 
+        variable. From there I run this through my fix export script before finally deleting the temp file. <br><br>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/usdexporter/maya_usd_exporter_logic_code.png" alt="Maya usd exporter logic class code." />
+     </div>
+
+     <div class="portfolio-text box">
+      <p>
+        The initial export script creates a temp usd file, and then based on export type, it exports using some default settings, like
+        frame range, selection being true, as well as stripping namespaces.<br><br>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/usdexporter/initial_export_code.png" alt="Initial export code." />
+     </div>
+
+     <div class="portfolio-text box">
+      <p>
+        The fix export script then runs the re-exporter scripts from above dependent on export type.<br><br>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/usdexporter/fix_export_code.png" alt="Fix export code." />
+     </div>
+
+     <div class="portfolio-text box">
+      <p>
+        The resulting usd hierarchy from my exports looks like this in Houdini.<br><br>
+     </div>
+ 
+     <div class="portfolio-photo">
+      <img src="../images/usdexporter/usd_hierarchy.png" alt="Usd hierarchy." />
      </div>
 
 
