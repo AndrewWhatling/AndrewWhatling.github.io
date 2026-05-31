@@ -1,3 +1,17 @@
+For Myself, Leaving this is the README so I can remove it easier later
+
+
+Add to .bashrc -> function to load astro website to port 1234
+
+alias astro="npm run dev -- --host --port 1234"
+
+
+Load website locally with the following 
+
+http://localhost:1234
+
+
+
 # Astro Starter Kit: Basics
 
 ```sh
