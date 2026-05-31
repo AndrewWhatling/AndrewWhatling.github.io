@@ -1,5 +1,5 @@
 {
-  "name": "u-3~nportfoliodefined",
+  "name": "portfolio",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "astro": "^6.1.6"
   }
 }
