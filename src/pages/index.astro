@@ -1,13 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import ShowreelScroller from "../components/ShowreelScroller.astro"
+import FeatureSection from "../components/FeatureSection.astro";
+import AboutMe from "../components/AboutMe.astro";
 ---
 
 <Layout>
     <ShowreelScroller />
-	<div class="content">
-		<h1>Welcome</h1>
-		<p>This is an example paragraph on the index page.</p>
-		<a href="/projects/RenderEngine">Have a look at my render engine!</a>
-	</div>
+    <AboutMe
+    imageSrc="/media/pfp.png"
+    imageAlt="Example image"
+    title="About Me"
+    text="This is an example paragraph on the index page."
+    imageLeft={false}
+    />
+
 </Layout>

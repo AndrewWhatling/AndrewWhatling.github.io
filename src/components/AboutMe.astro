@@ -1,0 +1,58 @@
+---
+interface Props {
+  imageSrc: string;
+  imageAlt: string;
+  title: string;
+  text: string;
+  imageLeft?: boolean;
+}
+
+const {
+  imageSrc,
+  imageAlt,
+  title,
+  text,
+  imageLeft = true,
+} = Astro.props;
+---
+
+<section class={`feature ${imageLeft ? "" : "reverse"}`}>
+  <div class="feature-image">
+    <img src={imageSrc} alt={imageAlt} />
+  </div>
+
+  <div class="feature-content">
+    <h2>{title}</h2>
+    <p>{text}</p>
+  </div>
+</section>
+
+<style>
+  .feature {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  padding: 8rem;
+}
+
+.feature.reverse {
+  flex-direction: row-reverse;
+}
+
+.feature-image {
+  flex: 0 0 350px; /* image column width */
+}
+
+.feature-content {
+  flex: 1; /* use remaining space */
+}
+
+.feature-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+</style>
+
+
