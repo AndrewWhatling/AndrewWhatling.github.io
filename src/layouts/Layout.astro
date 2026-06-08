@@ -14,12 +14,12 @@ import '@fontsource/jetbrains-mono';
 	</head>
 	<body>
 		<header>
-			<h1>Andrew Whatling Portfolio</h1>
+			<h1>Andrew Whatling | Houdini TD </h1>
 			<nav>
 				<ul>
 					<li><a href="/">Home</a></li>
-					<li><a href="/aboutMe">About Me</a></li>
-					<li><a href="/projects/RenderEngine">Render Engine</a></li>
+					<li><a href="/#aboutMe">About Me</a></li>
+                    <li><a href="/#projects">Projects</a></li>
                     <li><a href="https://www.linkedin.com/in/andrew-whatling-2704a6259/"
                            target="_blank"
                            rel="noopener noreferrer">Linkedin</a></li>
@@ -47,6 +47,9 @@ import '@fontsource/jetbrains-mono';
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
 
 		h1 {
 			margin: 0;
@@ -64,7 +67,12 @@ import '@fontsource/jetbrains-mono';
 </style>
 
 <style is:global>
-	* {
+    
+    html {
+        scroll-behavior: smooth;
+    }
+
+    * {
 		font-family: "JetBrains Mono", sans-serif;
         color: #ddd;
     }

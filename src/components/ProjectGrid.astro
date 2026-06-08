@@ -1,0 +1,58 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+
+const projects = [
+    {
+        title: "Project One",
+        imageSrc: "/media/test_02.jpg",
+        href: "/projects/Helix"
+    },
+    {
+        title: "Project Two",
+        imageSrc: "/media/test_02.jpg"
+    },
+    {
+        title: "Project Three",
+        imageSrc: "/media/test_02.jpg"
+    },
+    {
+        title: "Project Four",
+        imageSrc: "/media/test_02.jpg"
+    },
+    {
+        title: "Project Five",
+        imageSrc: "/media/test_02.jpg"
+    }
+];
+---
+
+<section id="projects" class="projects">
+    {projects.map(project => (
+        <ProjectCard
+            title={project.title}
+            imageSrc={project.imageSrc}
+            href={project.href}
+        />
+    ))}
+</section>
+
+<style>
+.projects {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 4rem;
+}
+
+@media (max-width: 1024px) {
+    .projects {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .projects {
+        grid-template-columns: 1fr;
+    }
+}
+</style>

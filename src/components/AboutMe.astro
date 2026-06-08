@@ -16,7 +16,7 @@ const {
 } = Astro.props;
 ---
 
-<section class={`feature ${imageLeft ? "" : "reverse"}`}>
+<section id="aboutMe" class={`feature ${imageLeft ? "" : "reverse"}`}>
   <div class="feature-image">
     <img src={imageSrc} alt={imageAlt} />
   </div>
@@ -32,7 +32,7 @@ const {
   display: flex;
   align-items: center;
   gap: 4rem;
-  padding: 8rem;
+  padding: 4rem;
 }
 
 .feature.reverse {
