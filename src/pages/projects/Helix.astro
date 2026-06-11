@@ -1,10 +1,168 @@
 ---
 import Layout from "../../layouts/Layout.astro"
+import HeroMedia from "../../components/HeroMedia.astro"
+import SectionHeader from "../../components/SectionHeader.astro"
+import FullWidthText from "../../components/FullWidthText.astro"
+import TextImageRow from "../../components/TextImageRow.astro"
+import MediaGrid from "../../components/MediaGrid.astro"
+import PageTitle from "../../components/PageTitle.astro"
 ---
 
 <Layout>
-	<div class="content">
-        <h1>Welcome</h1>
+    <div class="content">
+
+
+        <PageTitle 
+         title="Helix - Custom CPU Based Render Engine"
+         />
+
+        <HeroMedia
+                src="/media/projects/helix/renders/hero_render.png"
+            alt="Helix Render"
+            type="image"
+        />
+
+        <FullWidthText>
+            <p>
+                <br>
+                Helix is a CPU rendering software I started briefly in summer, and since late September 2025, have
+                dedicated a lot more time to. There were several reasons as to why I wanted to take on this
+                project, I was originally inspired by Sebastian Lague's "Coding Adventure" series, especially
+                his raytracer and fluid solver projects.
+                <br><br>
+
+                This project also opened up a variety of learning opportunities and new challenges for me. At the time of starting this
+                project, I had recently gotten a new laptop, and setup Arch Linux for the first time. As well as this, I also started
+                using Neovim, a text editor with a lot of keyboard-centric flexibility and a steep learning curve. This
+                project gave me the perfect excuse to sink hours into learning, as well as getting comfortable with all of
+                these new concepts.
+                <br><br>
+
+                Now one of the first questions I get when I talk about my render engine is 'Why call it "Helix?"'.
+                Whenever I imagine the word helix, the first thing that comes to mind is DNA, or a "double helix".
+                This project was my first time using C++, I wanted to challenge myself, and had the drive to create
+                this project, so having to learn a new programming language wasn't going to stop me. One of the first
+                questions I had when first learning C++ was, "What's a double?", turns out it's a float with double the
+                precision, and that's where the idea first came from to call it Helix, and it's stuck ever since.
+                <br><br>
+
+                Below is what Helix can do, as well as the journey that got me here.
+                <br><br>
+            </p>    
+        </FullWidthText>
+
+         <SectionHeader
+            title="Supported Data Passes"
+            subtitle="Cryptomatte Object and Material, Depth, World Space Position, Normals and Camera Facing Ratio."
+            />
+
+ 
+        <MediaGrid
+            items={[
+                {
+                src: "/media/projects/helix/renders/data_pass_cryptomatte.png",
+                caption: "Cryptomatte"
+                },
+                {
+                src: "/media/projects/helix/renders/data_pass_depth.png",
+                caption: "Depth"
+                },
+                {
+                src: "/media/projects/helix/renders/data_pass_world_space_position.png",
+                caption: "World Space Position"
+                },
+                {
+                src: "/media/projects/helix/renders/data_pass_normals.png",
+                caption: "Normals"
+                },
+                {
+                src: "/media/projects/helix/renders/data_pass_facing_ratio.png",
+                caption: "Camera Facing Ratio"
+                },
+            ]}
+        />
+
+
+        <SectionHeader
+            title="Depth of Field"
+            subtitle="Using a thin-lens camera model, default settings for the Black Magic Mini Ursa 4.6K."
+            />
+        
+        
+        <MediaGrid
+                items={[
+                {
+                src: "/media/projects/helix/renders/two_dragons_fov_30_2025_oct_27th_10_38.png"
+                }
+                ]}
+            />
+
+
+        <SectionHeader
+            title="Material Types"
+            subtitle="Lambertian, Metallic, Dielectric and Emissive"
+        />
+
+
+        <MediaGrid
+            items={[
+                {
+                src: "/media/projects/helix/renders/purple_dragon.png",
+                caption: "Dielectric"
+                },
+                {
+                src: "/media/projects/helix/renders/lambert_two_dragons_400_primary_2025_oct_27th_10_37.png",
+                caption: "Lambertian (Matte)"
+                },
+                {
+                src: "/media/projects/helix/renders/metallic_two_dragons_400_primary_2025_oct_27th_11_06.png",
+                caption: "Metallic"
+                },
+                {
+                src: "/media/projects/helix/renders/sphere_light_2025_oct_27th_16_01.png",
+                caption: "Emissive"
+                },
+                ]}
+            />
+
+            <SectionHeader
+                title="The Journey",
+                subtitle="An in-depth breakdown of the project from the start to it's current state."
+                />
+
+
+        <TextImageRow
+            src="/media/projects/helix/renders/antialiasing_2025_sept_30th_12_08.png"
+            alt="A very normal Sphere."
+            >
+            <p>
+        I started my render engine off by initially following along a series called "Raytracing in one weekend." 
+        I ran through the initial few chapters of that series. This started with creating very basic images, and 
+        exporting through a format called .PPM. After that was adding a basic sphere into the scene, not as geometry,
+        but as the mathematical representation. Once that was working, I added basic anti-aliasing and a way to represent what
+        would be the normals of the sphere, leading to the image you see here.
+            </p>
+        </TextImageRow>
+
+
+        <MediaGrid
+            items={[
+                {
+                src: "/media/test_02.jpg",
+                caption: "Cryptomatte"
+                },
+                {
+                src: "/media/test_02.jpg",
+                caption: "Depth"
+                },
+                {
+                src: "/media/test_02.jpg",
+                caption: "Normals"
+                }
+            ]}
+        />
+
+
 		<p>This is an example paragraph on the render engine page.</p>
 		<a href="/projects/RenderEngine">This points to the page you're currently on!</a>
 	</div>
