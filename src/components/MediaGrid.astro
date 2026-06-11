@@ -1,0 +1,77 @@
+---
+interface Item {
+    src: string;
+    caption?: string;
+}
+
+interface Props {
+    items: Item[];
+}
+
+const { items } = Astro.props;
+const lastIndex = items.length - 1;
+const isOdd = items.length % 2 === 1;
+---
+
+<div class="grid">
+    {
+        items.map((item, index) => (
+            <figure
+                class:list={[
+                    "item",
+                    isOdd && index === lastIndex && "centered"
+                ]}
+            >
+                <div class="card image">
+
+                    <img src={item.src} alt={item.caption ?? ""} />
+                </div>
+                {
+                    item.caption &&
+                    <figcaption>{item.caption}</figcaption>
+                }
+            </figure>
+        ))
+    }
+</div>
+
+<style>
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 0;
+    padding: 1rem 2rem;
+}
+
+.card {
+    background: #1f1f1f;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.6);
+}
+
+.image {
+    padding: 0;
+    overflow: hidden;
+}
+
+.image img {
+    width: 100%;
+    display: block;
+}
+
+
+figcaption {
+    margin-top: 0.75rem;
+    text-align: center;
+}
+
+.centered {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 50%;
+}
+
+
+</style>

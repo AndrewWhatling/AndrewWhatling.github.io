@@ -1,0 +1,30 @@
+---
+interface Props {
+    title: string;
+    subtitle?: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<section class="header">
+    <div class="card text">
+        <h2>{title}</h2>
+
+        {subtitle && <p>{subtitle}</p>}
+    </div>
+</section>
+
+<style>
+
+.header {
+    padding: 2rem 4rem;
+}
+
+.card {
+    background: #1f1f1f;
+    border-radius: 16px;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.6);
+}
+</style>

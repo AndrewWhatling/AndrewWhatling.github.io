@@ -1,0 +1,28 @@
+---
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class=header>
+    <div class="card text">
+        <h1>{title}</h1>
+    </div>
+</section>
+
+<style>
+
+.header {
+    padding: 2rem 17rem;
+}
+
+.card {
+    background: #1f1f1f;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.6);
+}
+
+</style>

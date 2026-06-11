@@ -1,0 +1,42 @@
+---
+interface Props {
+    src: string;
+    alt?: string;
+    type?: "image" | "video";
+}
+
+const {
+    src,
+    alt = "",
+    type = "image"
+} = Astro.props;
+---
+
+<div class="hero">
+    {
+        type === "video"
+        ? <video src={src} autoplay muted loop controls />
+        : <img src={src} alt={alt} />
+    }
+</div>
+
+<style>
+.hero {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.hero img,
+.hero video {
+    width: 70%;
+    max-width: 1600px;
+    border-radius: 12px;
+
+    background: #1f1f1f;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.6);
+}
+
+</style>

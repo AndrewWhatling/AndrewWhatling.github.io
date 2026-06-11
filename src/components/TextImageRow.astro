@@ -1,0 +1,47 @@
+---
+interface Props {
+    src: string;
+    alt?: string;
+}
+
+const { src, alt="" } = Astro.props;
+---
+
+<div class="row">
+
+    <div class="card text">
+        <slot />
+    </div>
+
+    <div class="card image">
+        <img src={src} alt={alt} />
+    </div>
+
+</div>
+
+<style>
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 3rem 4rem;
+}
+
+.card {
+    background: #1f1f1f;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.6);
+}
+
+.image {
+    padding: 0;
+    overflow: hidden;
+}
+
+.image img {
+    width: 100%;
+    display: block;
+}
+</style>
