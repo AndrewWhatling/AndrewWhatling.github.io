@@ -21,9 +21,9 @@ const {
     <img src={imageSrc} alt={imageAlt} />
   </div>
 
-  <div class="feature-content">
+  <div class="card feature-content">
     <h2>{title}</h2>
-    <p>{text}</p>
+    <div class="about-text" set:html={text}></div>
   </div>
 </section>
 
@@ -52,6 +52,13 @@ const {
   height: auto;
   display: block;
   border-radius: 12px;
+}
+
+.card {
+    background: #1f1f1f;
+    border-radius: 16px;
+    padding: 0rem 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.6);
 }
 </style>
 
