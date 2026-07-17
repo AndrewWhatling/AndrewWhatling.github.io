@@ -1,0 +1,51 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import HeroMedia from "../../components/HeroMedia.astro"
+import SectionHeader from "../../components/SectionHeader.astro"
+import FullWidthText from "../../components/FullWidthText.astro"
+import TextImageRow from "../../components/TextImageRow.astro"
+import MediaGrid from "../../components/MediaGrid.astro"
+import PageTitle from "../../components/PageTitle.astro"
+---
+
+<Layout>
+    <div class="content">
+
+
+        <PageTitle 
+         title="Bushtail Bandit - VFX Short Film"
+         />
+
+        <HeroMedia
+            src="/media/JetpackSquirrel_Low.mp4"
+            alt="Bushtail Bandit CG"
+            type="video"
+            />
+
+        <FullWidthText>
+            <p>
+            <br>
+            Bushtail Bandit was my final year graduation film, created at the University of Hertfordshire.
+            On the project, I was responsible for developing and maintaining our CG pipeline, producing the lighting
+            for all CG shots, and overseeing the rendering process.
+            <br><br>
+
+            As a Pipeline TD, my aim was to create a pipeline that was both easy to follow, and felt natural for
+            the artists from the moment they started using it, enabling fast, seemless collaboration between 
+            departments, from initial asset development through to final delivery.
+            <br><br>
+
+            As a lighting TD, my focus was on matching the direction, color and intensities of the on-set lighting
+            as close as possible. This ensured the rendered CG integrated naturally with the live-action footage,
+            and reduced the corrective workload required during compositing.
+            <br><br>
+
+            The reel above focuses on my lighting work. If you'd like to see more about my pipeline contributions,
+            focusing on the development of my USD Exporter tool, you can read about it <a href="/projects/UsdExporter">here</a>.
+            <br><br>
+            </p>
+        </FullWidthText>
+    
+    </div>
+</Layout>
+
